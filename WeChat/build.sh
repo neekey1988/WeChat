@@ -4,6 +4,8 @@
 solutionName=$1 #解决方案名称
 containerName=$2 #容器名称
 solutionPath=$3 #解决方案目录
+echo "solutionName:"$solutionName
+echo "solutionPath:"$solutionPath
 
 docker stop $containerName
 docker rm $containerName
