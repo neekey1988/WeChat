@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 #docker中执行此脚本进行代码发布构建
 solutionName=$1 #解决方案名称
