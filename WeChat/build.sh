@@ -8,4 +8,4 @@ docker stop $containerName
 docker rm $containerName
 docker rmi $containerName
 docker build -t $containerName /var/publish/$solutionName/
-echo "镜像构建成功"
+echo "镜像构建成功。"
