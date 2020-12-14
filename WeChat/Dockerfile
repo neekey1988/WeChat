@@ -9,8 +9,8 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["./WeChat.csproj", "WeChat/"]
 RUN dotnet restore "WeChat/WeChat.csproj"
-COPY . .
 WORKDIR "/src/WeChat"
+COPY . .
 RUN pwd
 RUN ls
 RUN dotnet build "WeChat.csproj" -c Release -o /app/build
