@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["WeChat/WeChat.csproj", "WeChat/"]
+COPY ["./WeChat.csproj", "WeChat/"]
 RUN dotnet restore "WeChat/WeChat.csproj"
 COPY . .
 WORKDIR "/src/WeChat"
