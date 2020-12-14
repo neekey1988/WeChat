@@ -12,7 +12,7 @@ RUN dotnet restore "WeChat/WeChat.csproj"
 COPY . .
 WORKDIR "/src/WeChat"
 RUN pwd
-RUN ll
+RUN ls
 RUN dotnet build "WeChat.csproj" -c Release -o /app/build
 
 FROM build AS publish
