@@ -10,5 +10,6 @@ echo "solutionPath:"$solutionPath
 docker stop $containerName
 docker rm $containerName
 docker rmi $containerName
+echo "/$solutionPath/$solutionName/"
 docker build -t $containerName /$solutionPath/$solutionName/
 echo "镜像构建成功"
