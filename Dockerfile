@@ -12,6 +12,7 @@ COPY ["./*.sln", "./WeChatSrc/"]
 COPY ["./WeChat/*.csproj", "./WeChatSrc/WeChat/"]
 COPY ["./WeChat.Common/*.csproj", "./WeChatSrc/WeChat.Common/"]
 COPY ["./WeChat.Component/*.csproj", "./WeChatSrc/WeChat.Component/"]
+WORKDIR /WeChatSrc
 RUN dotnet restore
 
 WORKDIR "/src/WeChatSrc"
