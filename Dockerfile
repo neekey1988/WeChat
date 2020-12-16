@@ -23,7 +23,7 @@ RUN ls
 #RUN dotnet build "WeChat.csproj" -c Release -o /app/build
 
 FROM build AS publish
-WORKDIR "/app/src/WeChatSrc"
+WORKDIR "/src/WeChatSrc/WeChat"
 RUN dotnet publish -c Release -o /app/publish
 
 FROM base AS final
