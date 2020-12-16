@@ -31,7 +31,7 @@ namespace WeChat.Component.Middlewares
                 await this.next(context);
                 return;
             }
-            if (context.Request.Query["signature"].Count == 0 || context.Request.Query["timestamp"].Count == 0 || context.Request.Query["nonce"].Count == 0)
+            if (context.Request.Query["echostr"].Count == 0 || context.Request.Query["signature"].Count == 0 || context.Request.Query["timestamp"].Count == 0 || context.Request.Query["nonce"].Count == 0)
             {
                 context.Response.StatusCode = 404;
                 return;
@@ -39,9 +39,16 @@ namespace WeChat.Component.Middlewares
             wechatProvider.options.signature = context.Request.Query["signature"][0];
             wechatProvider.options.timestamp = context.Request.Query["timestamp"][0];
             wechatProvider.options.nonce = context.Request.Query["nonce"][0];
-            wechatProvider.CheckSignature(hostingEnv, out dynamic result);
-
-            return;
+            if(wechatProvider.CheckSignature(hostingEnv, out dynamic result))
+            {
+                context.Response.StatusCode = 200;
+                context.Response.WriteAsync(context.Request.Query["echostr"].ToString()).Wait();
+            }
+            else
+            {
+                context.Response.StatusCode = 401;
+                return;
+            }
         }
     }
 }
