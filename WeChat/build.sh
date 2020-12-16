@@ -11,5 +11,5 @@ docker stop $containerName
 docker rm $containerName
 docker rmi $containerName
 echo "/$solutionPath/$solutionName/"
-docker build -t $containerName /$solutionPath/$solutionName/
+docker build -t $containerName /$solutionPath/
 echo "镜像构建成功"
