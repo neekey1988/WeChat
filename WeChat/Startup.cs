@@ -12,8 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WeChat.Common.Logging;
-using WeChat.Common.Options;
-using WeChat.Component.Extensions;
+using WeChatLink.Options;
+using WeChatLink.Extensions;
 
 namespace WeChat
 {

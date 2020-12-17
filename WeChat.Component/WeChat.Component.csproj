@@ -6,11 +6,16 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="NETCore.Encrypt" Version="2.0.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WeChat.Common\WeChat.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Builders\" />
+    <Folder Include="Middlewares\" />
+    <Folder Include="Providers\" />
   </ItemGroup>
 
 </Project>

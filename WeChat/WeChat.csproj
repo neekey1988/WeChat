@@ -22,6 +22,12 @@
     <ProjectReference Include="..\WeChat.Component\WeChat.Component.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="WeChatLink">
+      <HintPath>.\WeChatLink.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 
 
 </Project>

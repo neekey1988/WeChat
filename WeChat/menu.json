@@ -1,0 +1,29 @@
+{
+  "button": [
+    {
+      "type": "click",
+      "name": "今日歌曲",
+      "key": "V1001_TODAY_MUSIC"
+    },
+    {
+      "name": "菜单",
+      "sub_button": [
+        {
+          "type": "view",
+          "name": "搜索",
+          "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9f8b2179e922b900&redirect_uri=http://47.96.17.43/user/index?reurl=baidu&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
+        },
+        {
+          "type": "view",
+          "name": "视频",
+          "url": "http://v.qq.com/"
+        },
+        {
+          "type": "click",
+          "name": "最新歌曲",
+          "key": "NewMusic"
+        }
+      ]
+    }
+  ]
+}
