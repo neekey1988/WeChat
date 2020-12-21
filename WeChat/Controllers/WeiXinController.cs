@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WeChat.Controllers.Logging
 {
-    public class WeiXinController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class WeiXinController : ControllerBase
     {
-        public IActionResult Index()
+        [HttpGet]
+        public RedirectResult Index()
         {
             return Redirect("/menu");
         }

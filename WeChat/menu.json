@@ -2,25 +2,25 @@
   "button": [
     {
       "type": "click",
-      "name": "½ñÈÕ¸èÇú",
+      "name": "ä»Šæ—¥æ­Œæ›²",
       "key": "V1001_TODAY_MUSIC"
     },
     {
-      "name": "²Ëµ¥",
+      "name": "èœå•",
       "sub_button": [
         {
           "type": "view",
-          "name": "ËÑË÷",
+          "name": "æœç´¢",
           "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9f8b2179e922b900&redirect_uri=http://47.96.17.43/user/index?reurl=baidu&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
         },
         {
           "type": "view",
-          "name": "ÊÓÆµ",
+          "name": "è§†é¢‘",
           "url": "http://v.qq.com/"
         },
         {
           "type": "click",
-          "name": "×îĞÂ¸èÇú",
+          "name": "æœ€æ–°æ­Œæ›²",
           "key": "NewMusic"
         }
       ]
