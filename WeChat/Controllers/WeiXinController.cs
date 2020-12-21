@@ -10,7 +10,7 @@ namespace WeChat.Controllers.Logging
     {
         public IActionResult Index()
         {
-            return View();
+            return Redirect("/menu");
         }
     }
 }
