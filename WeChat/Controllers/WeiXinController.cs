@@ -18,6 +18,7 @@ namespace WeChat.Controllers.Logging
             return Redirect("/menu");
         }
 
+        [HttpGet]
         [HttpPost]
         public string NewMusic()
         {

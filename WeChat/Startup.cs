@@ -14,6 +14,8 @@ using Microsoft.Extensions.Logging;
 using WeChat.Common.Logging;
 using WeChatLink.Options;
 using WeChatLink.Extensions;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Http;
 
 namespace WeChat
 {
@@ -30,6 +32,8 @@ namespace WeChat
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<List<OptionsWeChat>>(Configuration.GetSection("OptionsWeChat"));
+            services.AddSingleton<WeChatLink.Transformer.WeChatLinkTranslationTransformer>();
+            services.AddWeChatLink();
             services.AddControllers()
                 .AddControllersAsServices();//属性注入必须加上这个
         }
@@ -59,16 +63,18 @@ namespace WeChat
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseWeChat();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseWeChat();
+            //WeChatLink.Transformer.WeChatLinkTranslationTransformer a = new WeChatLink.Transformer.WeChatLinkTranslationTransformer();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapDynamicControllerRoute<WeChatLink.Transformer.WeChatLinkTranslationTransformer>("/wechat");
             });
         }
     }
