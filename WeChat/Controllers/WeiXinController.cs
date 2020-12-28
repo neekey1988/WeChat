@@ -23,7 +23,7 @@ namespace WeChat.Controllers.Logging
         public string NewMusic()
         {
             var wx=(M_RequestMessage)HttpContext.Items["M_RequestMessage"];
-            return Message.SendTextMessage(wx, "您好，欢迎关注任晨光的公众号");
+            return Message.SendTextMessage(wx, "您好，欢迎关注我的公众号");
         }
     }
 }
