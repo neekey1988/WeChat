@@ -65,8 +65,9 @@ namespace WeChat
             }
             //app.UseHttpsRedirection();
 
-            app.UseRouting();
+            //要放到UseRouting之前，core3.0中端点路由优先级最高，一旦命中端点路由，其他中间件不会触发，其他中间件指的是在UseRouting和UseEndpoints之间的中间件
             app.UseWeChat();
+            app.UseRouting();
             //WeChatLink.Transformer.WeChatLinkTranslationTransformer a = new WeChatLink.Transformer.WeChatLinkTranslationTransformer();
 
             app.UseAuthorization();
@@ -74,7 +75,7 @@ namespace WeChat
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                //endpoints.MapDynamicControllerRoute<WeChatLink.Transformer.WeChatLinkTranslationTransformer>("/wechat"); 
+                endpoints.MapDynamicControllerRoute<WeChatLink.Transformer.WeChatLinkTranslationTransformer>("wechat"); 
             });
         }
     }
