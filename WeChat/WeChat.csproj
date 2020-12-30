@@ -24,10 +24,9 @@
 
   <ItemGroup>
     <Reference Include="WeChatLink">
-		<HintPath>.\WeChatLink.dll</HintPath>
-	</Reference>
+      <HintPath>dll\WeChatLink.dll</HintPath>
+    </Reference>
   </ItemGroup>
-
 
 
 </Project>
