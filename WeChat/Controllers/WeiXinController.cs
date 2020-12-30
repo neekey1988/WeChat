@@ -32,8 +32,8 @@ namespace WeChat.Controllers.Logging
         {
             var wx=(M_RequestMessage)HttpContext.Items["M_RequestMessage"];
             return Message.SendPicTextMessage(wx, "今日歌曲推荐", "今天点击率最高，播放次数最高的歌曲！",
-                   "http://musicdata.baidu.com/data2/pic/a5c79cf978eb5302edca415cabf744f1/260983581/260983581.jpg",
-                   "http://www.baidu.com/");
+                   "https://images.ali213.net/photo/M00/5D/B8/5db8b30a808fdff8052f30903f42a27c6212.jpg",
+                   "https://0day.ali213.net/html/2011/7429.html");
         } 
     }
 }
