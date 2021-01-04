@@ -32,7 +32,7 @@ namespace WeChat
         public void ConfigureServices(IServiceCollection services)
         {
             //1.添加配置项映射，添加所需的注入
-            services.Configure<List<OptionsWeChat>>(Configuration.GetSection("OptionsWeChat"));
+            services.Configure<OptionsWeChat>(Configuration.GetSection("OptionsWeChat"));
             services.AddWeChatLink();
             services.AddControllers()
                 .AddControllersAsServices();//属性注入必须加上这个
