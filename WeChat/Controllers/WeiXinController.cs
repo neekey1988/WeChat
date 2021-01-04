@@ -23,7 +23,7 @@ namespace WeChat.Controllers.Logging
         public string NewMusic()
         {
             var wx=(M_RequestMessage)HttpContext.Items["M_RequestMessage"];
-            return Message.SendTextMessage(wx, "您好，欢迎关注我的公众号");
+            return Message.SendTextMessage(wx, "新歌获取测试");
         }
 
         [HttpGet]
@@ -35,5 +35,19 @@ namespace WeChat.Controllers.Logging
                    "https://images.ali213.net/photo/M00/5D/B8/5db8b30a808fdff8052f30903f42a27c6212.jpg",
                    "https://0day.ali213.net/html/2011/7429.html");
         } 
+
+        [HttpPost]
+        public string subscribe()
+        {
+            var wx = (M_RequestMessage)HttpContext.Items["M_RequestMessage"];
+            return Message.SendTextMessage(wx, "您好，欢迎关注我的公众号");
+        }
+
+        [HttpPost]
+        public string UserContent()
+        {
+            var wx = (M_RequestMessage)HttpContext.Items["M_RequestMessage"];
+            return Message.SendTextMessage(wx, wx.Content+",已阅");
+        }
     }
 }
