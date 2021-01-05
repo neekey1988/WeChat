@@ -22,7 +22,7 @@ namespace WeChat.Controllers.Logging
         [HttpPost]
         public string NewMusic()
         {
-            var wx=(M_RequestMessage)HttpContext.Items["M_RequestMessage"];
+            var wx=(M_MessageBase)HttpContext.Items["M_RequestMessage"];
             return Message.SendTextMessage(wx, "新歌获取测试");
         }
 
@@ -30,7 +30,7 @@ namespace WeChat.Controllers.Logging
         [HttpPost]
         public string Test()
         {
-            var wx=(M_RequestMessage)HttpContext.Items["M_RequestMessage"];
+            var wx=(M_MessageBase)HttpContext.Items["M_RequestMessage"];
             return Message.SendPicTextMessage(wx, "今日歌曲推荐", "今天点击率最高，播放次数最高的歌曲！",
                    "https://images.ali213.net/photo/M00/5D/B8/5db8b30a808fdff8052f30903f42a27c6212.jpg",
                    "https://0day.ali213.net/html/2011/7429.html");
@@ -39,15 +39,22 @@ namespace WeChat.Controllers.Logging
         [HttpPost]
         public string subscribe()
         {
-            var wx = (M_RequestMessage)HttpContext.Items["M_RequestMessage"];
+            var wx = (M_MessageBase)HttpContext.Items["M_RequestMessage"];
             return Message.SendTextMessage(wx, "您好，欢迎关注我的公众号");
         }
 
         [HttpPost]
         public string UserContent()
         {
-            var wx = (M_RequestMessage)HttpContext.Items["M_RequestMessage"];
+            var wx = (M_StandardText)HttpContext.Items["M_RequestMessage"];
             return Message.SendTextMessage(wx, wx.Content+",已阅");
+        }
+
+        [HttpPost]
+        public string Image()
+        {
+            var wx = (M_StandardImage)HttpContext.Items["M_RequestMessage"];
+            return Message.SendPicTextMessage(wx, "图片消息","您发送的图片:"+ wx.MediaId, wx.PicUrl, "https://0day.ali213.net/html/2011/7429.html");
         }
     }
 }
