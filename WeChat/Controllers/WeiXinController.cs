@@ -56,5 +56,11 @@ namespace WeChat.Controllers.Logging
             var wx = (M_StandardImage)HttpContext.Items["M_RequestMessage"];
             return Message.SendPicTextMessage(wx, "图片消息","您发送的图片:"+ wx.MediaId, wx.PicUrl, "https://0day.ali213.net/html/2011/7429.html");
         }
+        [HttpPost]
+        public string Location()
+        {
+            var wx = (M_StandardLocation)HttpContext.Items["M_RequestMessage"];
+            return Message.SendTextMessage(wx,$"x:{wx.Location_X},y:{wx.Location_Y},Scale:{wx.Scale},Label:{wx.Label}");
+        }
     }
 }
