@@ -1,24 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting.Internal;
+using WeChat.Common.Logging;
+using WeChatLink;
 using WeChatLink.Common;
 using WeChatLink.Model;
 
-namespace WeChat.Controllers.Logging
+namespace WeChat.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class WeiXinController : ControllerBase
     {
+        public IHostingEnvironment _hostingEnvironment { get; set; }
+        public ILogHelper log { get; set; }
         [HttpGet]
-        public RedirectResult Index()
+        [Route("index")]
+        public string Index()
         {
-            return Redirect("/menu");
+            var filePath = string.Format("/Images/redducati.PNG");
+            //获取当前web目录
+            var webRootPath = _hostingEnvironment.ContentRootPath+filePath;
+            Task<(bool state,string message)> result;
+            using(FileStream fs=new FileStream(webRootPath,FileMode.Open, FileAccess.Read))
+            {
+                result=HttpHelper.PostImageAsync(fs, Summary.E_MaterialType.Image, Summary.E_MaterialTime.Permanent);
+            }
+            return result.Result.message;
         }
 
         [HttpGet]
+        [Route("index2")]
+        public string Index2()
+        {
+            M_Articles entity = new M_Articles();
+            entity.articles = new List<M_MaterialNews>();
+            entity.articles.Add(new M_MaterialNews() { 
+             author="neekey", content="test", content_source_url="www.baidu.com", title="图文消息测试", show_cover_pic=1, digest="", 
+                need_open_comment=0, only_fans_can_comment=0, thumb_media_id= "9esnqWhnAq2hOWtSkGD37V6uq4-1TAvxjNDrqy9NY2M"
+            });
+            var result=HttpHelper.PostNewsAsync(entity);
+            return result.Result.message;
+        }
+
         [HttpPost]
         public string NewMusic()
         {
@@ -26,12 +55,11 @@ namespace WeChat.Controllers.Logging
             return Message.SendTextMessage(wx, "新歌获取测试");
         }
 
-        [HttpGet]
         [HttpPost]
         public string Test()
         {
             var wx=(M_MessageBase)HttpContext.Items["M_RequestMessage"];
-            return Message.SendPicTextMessage(wx, "今日歌曲推荐", "今天点击率最高，播放次数最高的歌曲！",
+            return Message.SendNewsMessage(wx, "今日歌曲推荐", "今天点击率最高，播放次数最高的歌曲！",
                    "https://images.ali213.net/photo/M00/5D/B8/5db8b30a808fdff8052f30903f42a27c6212.jpg",
                    "https://0day.ali213.net/html/2011/7429.html");
         } 
@@ -47,6 +75,10 @@ namespace WeChat.Controllers.Logging
         public string UserContent()
         {
             var wx = (M_StandardText)HttpContext.Items["M_RequestMessage"];
+            if (wx.Content.Contains("image"))
+            {
+                return Message.SendImageMessage(wx, "9esnqWhnAq2hOWtSkGD37V6uq4-1TAvxjNDrqy9NY2M");
+            }
             return Message.SendTextMessage(wx, wx.Content+",已阅");
         }
 
@@ -54,7 +86,7 @@ namespace WeChat.Controllers.Logging
         public string Image()
         {
             var wx = (M_StandardImage)HttpContext.Items["M_RequestMessage"];
-            return Message.SendPicTextMessage(wx, "图片消息","您发送的图片:"+ wx.MediaId, wx.PicUrl, "https://0day.ali213.net/html/2011/7429.html");
+            return Message.SendNewsMessage(wx, "图片消息","您发送的图片:"+ wx.MediaId, wx.PicUrl, "https://0day.ali213.net/html/2011/7429.html");
         }
         [HttpPost]
         public string Location()
