@@ -87,7 +87,7 @@ namespace WeChat.Controllers
             }
             if (wx.Content.Contains("music"))
             {
-                return Message.SendMusicMessage(wx, "测试音乐","这是一个测试音乐", "http://downsc.chinaz.net/Files/DownLoad/sound1/201906/11582.mp3","", "9esnqWhnAq2hOWtSkGD37V6uq4-1TAvxjNDrqy9NY2M");
+                return Message.SendMusicMessage(wx, "测试音乐","这是一个测试音乐", "http://downsc.chinaz.net/Files/DownLoad/sound1/201906/11582.mp3", "http://downsc.chinaz.net/Files/DownLoad/sound1/201906/11582.mp3", "9esnqWhnAq2hOWtSkGD37V6uq4-1TAvxjNDrqy9NY2M");
             }
             return Message.SendTextMessage(wx, wx.Content+",已阅");
         }
