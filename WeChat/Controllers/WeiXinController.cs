@@ -29,7 +29,7 @@ namespace WeChat.Controllers
             Task<(bool state,string message)> result;
             using(FileStream fs=new FileStream(webRootPath,FileMode.Open, FileAccess.Read))
             {
-                result=HttpHelper.PostImageAsync(fs, Summary.E_MaterialType.Image, Summary.E_MaterialTime.Permanent);
+                result=HttpHelper.PostImageAsync(fs,Summary.E_MaterialTime.Permanent);
             }
             return result.Result.message;
         }
@@ -59,9 +59,15 @@ namespace WeChat.Controllers
         public string Test()
         {
             var wx=(M_MessageBase)HttpContext.Items["M_RequestMessage"];
-            return Message.SendNewsMessage(wx, "今日歌曲推荐", "今天点击率最高，播放次数最高的歌曲！",
-                   "https://images.ali213.net/photo/M00/5D/B8/5db8b30a808fdff8052f30903f42a27c6212.jpg",
-                   "https://0day.ali213.net/html/2011/7429.html");
+            List<M_MessageNews> list = new List<M_MessageNews>();
+            list.Add(new M_MessageNews()
+            {
+                Title = "今日歌曲推荐", Description= "今天点击率最高，播放次数最高的歌曲！",
+                PicUrl= "https://images.ali213.net/photo/M00/5D/B8/5db8b30a808fdff8052f30903f42a27c6212.jpg",
+                Url= "https://0day.ali213.net/html/2011/7429.html"
+            }); ;
+
+            return Message.SendNewsMessage(wx, list);
         } 
 
         [HttpPost]
@@ -79,6 +85,10 @@ namespace WeChat.Controllers
             {
                 return Message.SendImageMessage(wx, "9esnqWhnAq2hOWtSkGD37V6uq4-1TAvxjNDrqy9NY2M");
             }
+            if (wx.Content.Contains("music"))
+            {
+                return Message.SendMusicMessage(wx, "测试音乐","这是一个测试音乐", "http://downsc.chinaz.net/Files/DownLoad/sound1/201906/11582.mp3","", "9esnqWhnAq2hOWtSkGD37V6uq4-1TAvxjNDrqy9NY2M");
+            }
             return Message.SendTextMessage(wx, wx.Content+",已阅");
         }
 
@@ -86,8 +96,9 @@ namespace WeChat.Controllers
         public string Image()
         {
             var wx = (M_StandardImage)HttpContext.Items["M_RequestMessage"];
-            return Message.SendNewsMessage(wx, "图片消息","您发送的图片:"+ wx.MediaId, wx.PicUrl, "https://0day.ali213.net/html/2011/7429.html");
+            return Message.SendImageMessage(wx, "9esnqWhnAq2hOWtSkGD37V6uq4-1TAvxjNDrqy9NY2M");
         }
+
         [HttpPost]
         public string Location()
         {
