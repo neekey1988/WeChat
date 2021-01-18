@@ -50,6 +50,7 @@ namespace WeChat.Controllers
         public string Finish()
         {
             var wx = (M_EventTemplateSendJobFinish)HttpContext.Items["M_RequestMessage"];
+            Console.WriteLine(wx.MsgID+":"+wx.Status);
             return MessageHelper.SendTextMessage(wx, wx.Status+",已阅");
         }
     }
