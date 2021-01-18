@@ -46,7 +46,7 @@ namespace WeChat.Controllers
         }
 
         [HttpGet]
-        [Route("finish")]
+        [Route("Finish")]
         public string Finish()
         {
             var wx = (M_EventTemplateSendJobFinish)HttpContext.Items["M_RequestMessage"];
