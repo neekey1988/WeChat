@@ -44,5 +44,13 @@ namespace WeChat.Controllers
         {
             return TemplateHelper.DeleteTemplateAsync(id).Result.message;
         }
+
+        [HttpGet]
+        [Route("finish")]
+        public string Finish()
+        {
+            var wx = (M_EventTemplateSendJobFinish)HttpContext.Items["M_RequestMessage"];
+            return MessageHelper.SendTextMessage(wx, wx.Status+",已阅");
+        }
     }
 }

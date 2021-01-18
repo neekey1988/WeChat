@@ -145,7 +145,7 @@ namespace WeChat.Controllers
             {
                 M_MessageTemplate entity = new M_MessageTemplate() {
                     touser = wx.FromUserName, template_id = "zr3dBAVZrCcsahxZcR3RHNWqIxwJ8s-TedCOWTBGxyk",
-                    data = new { msg = new { vaue="111111",color= "#173177" } }
+                    data = new { msg = new { value="111111",color= "#173177" } }
                 };
                 TemplateHelper.SendTemplateAsync(entity);
                 return MessageHelper.SendTextMessage(wx, wx.Content + ",已阅");
