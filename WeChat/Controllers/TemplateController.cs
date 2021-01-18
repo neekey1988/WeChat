@@ -45,7 +45,7 @@ namespace WeChat.Controllers
             return TemplateHelper.DeleteTemplateAsync(id).Result.message;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Finish")]
         public string Finish()
         {

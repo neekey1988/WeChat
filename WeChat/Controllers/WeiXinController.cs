@@ -144,7 +144,7 @@ namespace WeChat.Controllers
             if (wx.Content.Contains("temp")) 
             {
                 M_MessageTemplate entity = new M_MessageTemplate() {
-                    touser = wx.FromUserName, template_id = "zr3dBAVZrCcsahxZcR3RHNWqIxwJ8s-TedCOWTBGxyk",
+                    touser = wx.FromUserName, template_id = "zr3dBAVZrCcsahxZcR3RHNWqIxwJ8s-TedCOWTBGxyk",url="www.baidu.com"
                     data = new { msg = new { value="111111",color= "#173177" } }
                 };
                 TemplateHelper.SendTemplateAsync(entity);
