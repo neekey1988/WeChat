@@ -141,7 +141,7 @@ namespace WeChat.Controllers
             {
                 return MessageHelper.SendMusicMessage(wx, "测试音乐","这是一个测试音乐", "http://downsc.chinaz.net/Files/DownLoad/sound1/201906/11582.mp3", "http://downsc.chinaz.net/Files/DownLoad/sound1/201906/11582.mp3", "9esnqWhnAq2hOWtSkGD37V6uq4-1TAvxjNDrqy9NY2M");
             }
-            if (wx.Content.Contains("temp"))
+            if (wx.Content.Contains("temp")) 
             {
                 M_MessageTemplate entity = new M_MessageTemplate() {
                     touser = wx.FromUserName, template_id = "zr3dBAVZrCcsahxZcR3RHNWqIxwJ8s-TedCOWTBGxyk",
