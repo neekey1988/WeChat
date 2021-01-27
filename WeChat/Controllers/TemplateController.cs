@@ -53,5 +53,13 @@ namespace WeChat.Controllers
             Console.WriteLine(wx.MsgID+":"+wx.Status);
             return MessageHelper.SendTextMessage(wx, wx.Status+",已阅");
         }
+        [HttpPost]
+        [Route("batchfinish")]
+        public string BatchFinish()
+        {
+            var wx = (M_EventMASSSENDJOBFINISH)HttpContext.Items["M_RequestMessage"];
+            Console.WriteLine(wx.MsgID+":"+wx.Status);
+            return MessageHelper.SendTextMessage(wx, wx.Status+",已阅");
+        }
     }
 }

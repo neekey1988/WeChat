@@ -23,13 +23,13 @@ namespace WeChat.Controllers
         [Route("index")]
         public string Index()
         {
-            var filePath = string.Format("/Images/redducati.PNG");
+            var filePath = string.Format("/Images/result.jpg");
             //获取当前web目录
             var webRootPath = _hostingEnvironment.ContentRootPath+filePath;
             Task<(bool state,string message)> result;
             using(FileStream fs=new FileStream(webRootPath,FileMode.Open, FileAccess.Read))
             {
-                result= MateriaHelper.PostImageAsync(fs,Summary.E_MaterialTime.Permanent);
+                result= MateriaHelper.PostThumbAsync(fs,Summary.E_MaterialTime.Temporary);
             }
             return result.Result.message;
         }
@@ -49,11 +49,33 @@ namespace WeChat.Controllers
         }
 
         [HttpGet]
+        [Route("batch")]
+        public string BatchNews()
+        {
+            M_Articles entity = new M_Articles();
+            entity.articles = new List<M_MaterialNews>();
+            entity.articles.Add(new M_MaterialNews()
+            {
+                author = "neekey",
+                content = "test",
+                content_source_url = "www.baidu.com",
+                title = "图文消息测试",
+                show_cover_pic = 1,
+                digest = "",
+                need_open_comment = 0,
+                only_fans_can_comment = 0,
+                thumb_media_id = "uc_4UZM-fWBuUlHiXsWTMDnOzUDuwJ4lECSSJqgO7qA6WhGEfeIUROTs1KtCi5NI"
+            });
+            var result = MateriaHelper.PostBatchNewsAsync(entity);
+            return result.Result.message;
+        }
+
+        [HttpGet]
         [Route("getlist")]
         public string GetMaterialsList()
         {
             string count = MateriaHelper.GetMaterialCount().Result.message;
-            return MateriaHelper.GetMaterialList( Summary.E_MaterialType.News,0,20).Result.message;
+            return MateriaHelper.GetMaterialList( Summary.E_MaterialType.Image,0,20).Result.message;
         }
         [HttpGet]
         [Route("getpm")]
@@ -74,6 +96,28 @@ namespace WeChat.Controllers
                 return File(result.file, "application/octet-stream", result.message);
             else
                 return Ok(result.message);
+        }
+
+        [HttpGet]
+        [Route("clear")]
+        public IActionResult ClearQuota()
+        {
+            var result = Core.ClearApiQuotaAsync().Result;
+            return Ok(result.message);
+        }
+        [HttpGet]
+        [Route("auto")]
+        public IActionResult GetAutoreplyInfo()
+        {
+            var result =MessageHelper.GetAutoreplyInfoAsync().Result;
+            return Ok(result.message);
+        }
+        [HttpGet]
+        [Route("getspeed")]
+        public IActionResult GetSpeed()
+        {
+            var result = BatchMessageHelper.GetBatchSpeed().Result;
+            return Ok(result.batchspeed.realspeed);
         }
         [HttpGet]
         [Route("update")]
