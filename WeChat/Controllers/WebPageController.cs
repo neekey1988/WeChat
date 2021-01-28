@@ -28,9 +28,9 @@ namespace WeChat.Controllers
 
         [HttpGet]
         [Route("callback")]
-        public string callback(string code,string state,string data)
+        public IActionResult callback(string code,string state,string data)
         {
-            return code+"@@@@"+data;
+            return Ok( code+"@@@@"+data);
         }
      
     }
