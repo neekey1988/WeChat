@@ -1,0 +1,1309 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WeChatLink</name>
+    </assembly>
+    <members>
+        <member name="M:WeChatLink.Common.APIHelper.ClearApiQuotaAsync">
+            <summary>
+            公众号的所有api调用（包括第三方帮其调用）次数进行清零
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.DeleteMessage(System.String,System.String)">
+            <summary>
+            删除群发消息，删除群发消息只能删除图文消息和视频消息，其他类型的消息一经发送，无法删除
+            </summary>
+            <param name="msg_id">发送出去的消息ID</param>
+            <param name="article_idx">要删除的文章在图文消息中的位置，第一篇编号为1，该字段不填或填0会删除全部文章</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.GetMessageStatus(System.String)">
+            <summary>
+            查询群发消息发送状态
+            </summary>
+            <param name="msg_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.GetBatchSpeed">
+            <summary>
+            获取群发速度
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.SetBatchSpeed(System.Int32)">
+            <summary>
+            设置群发速度
+            </summary>
+            <param name="speed">群发速度的级别 0-4级，分别对应80W,60W,45W,30W,10W每分钟</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.SendNewsMessage(System.String,System.Int32,System.Boolean,System.Nullable{System.Int32},System.String)">
+            <summary>
+            群发图文消息
+            </summary>
+            <param name="media_id">用于群发的消息的media_id，必须通过专门的群发图文消息素材接口上传返回的media_id才行（MateriaHelper.PostBatchNewsAsync）</param>
+            <param name="send_ignore_reprint">图文消息被判定为转载时，是否继续群发。 1为继续群发（转载），0为停止群发。 该参数默认为0。</param>
+            <param name="is_to_all">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据tag_id发送给指定群组的用户,默认为是</param>
+            <param name="tag_id">群发到的标签的tag_id，参见用户管理中用户分组接口，若is_to_all值为true，可不填写tag_id</param>
+            <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid。微信后台将对24小时内的群发记录进行检查，如果该clientmsgid已经存，则拒绝本次群发请求，返回已存在的群发msgid，开发者可以调用“查询群发消息发送状态”接口查看该条群发的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.SendNewsMessage(System.String[],System.String,System.Int32,System.String)">
+            <summary>
+            群发图文消息
+            </summary>
+            <param name="touser">填写图文消息的接收者，一串OpenID列表，OpenID最少2个，最多10000个</param>
+            <param name="media_id">用于群发的消息的media_id，必须通过专门的群发图文消息素材接口上传返回的media_id才行（MateriaHelper.PostBatchNewsAsync）</param>
+            <param name="send_ignore_reprint">图文消息被判定为转载时，是否继续群发。 1为继续群发（转载），0为停止群发。 该参数默认为0。</param>
+            <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid。微信后台将对24小时内的群发记录进行检查，如果该clientmsgid已经存，则拒绝本次群发请求，返回已存在的群发msgid，开发者可以调用“查询群发消息发送状态”接口查看该条群发的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.PreviewNewsMessage(System.String,System.String,System.String)">
+            <summary>
+            预览群发的图文消息
+            </summary>
+            <param name="touser">openid，接收预览链接的用户</param>
+            <param name="media_id">用于群发的消息的media_id，必须通过专门的群发图文消息素材接口上传返回的media_id才行（MateriaHelper.PostBatchNewsAsync）</param>
+            <param name="towxname">微信号，接收预览链接的用户，同时填写touser，以towxname优先</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.SendTextMessage(System.String,System.Boolean,System.Nullable{System.Int32},System.String)">
+            <summary>
+            群发文本消息
+            </summary>
+            <param name="content">文本内容</param>
+            <param name="is_to_all">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据tag_id发送给指定群组的用户,默认为是</param>
+            <param name="tag_id">群发到的标签的tag_id，参见用户管理中用户分组接口，若is_to_all值为true，可不填写tag_id</param>
+            <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid。微信后台将对24小时内的群发记录进行检查，如果该clientmsgid已经存，则拒绝本次群发请求，返回已存在的群发msgid，开发者可以调用“查询群发消息发送状态”接口查看该条群发的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.SendTextMessage(System.String[],System.String,System.String)">
+            <summary>
+            群发文本消息
+            </summary>
+            <param name="touser">填写图文消息的接收者，一串OpenID列表，OpenID最少2个，最多10000个</param>
+            <param name="content">文本内容</param>
+            <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid。微信后台将对24小时内的群发记录进行检查，如果该clientmsgid已经存，则拒绝本次群发请求，返回已存在的群发msgid，开发者可以调用“查询群发消息发送状态”接口查看该条群发的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.PreviewTextMessage(System.String,System.String,System.String)">
+            <summary>
+            预览群发的文本消息
+            </summary>
+            <param name="touser">openid，接收预览链接的用户</param>
+            <param name="content">文本内容</param>
+            <param name="towxname">微信号，接收预览链接的用户，同时填写touser，以towxname优先</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.SendVoiceMessage(System.String,System.Boolean,System.Nullable{System.Int32},System.String)">
+            <summary>
+            群发语音/音频消息
+            </summary>
+            <param name="media_id">注意此处media_id需通过素材管理->新增素材来得到</param>
+            <param name="is_to_all">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据tag_id发送给指定群组的用户,默认为是</param>
+            <param name="tag_id">群发到的标签的tag_id，参见用户管理中用户分组接口，若is_to_all值为true，可不填写tag_id</param>
+            <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid。微信后台将对24小时内的群发记录进行检查，如果该clientmsgid已经存，则拒绝本次群发请求，返回已存在的群发msgid，开发者可以调用“查询群发消息发送状态”接口查看该条群发的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.SendVoiceMessage(System.String[],System.String,System.String)">
+            <summary>
+            群发语音/音频消息
+            </summary>
+            <param name="touser">填写图文消息的接收者，一串OpenID列表，OpenID最少2个，最多10000个</param>
+            <param name="media_id">注意此处media_id需通过素材管理->新增素材来得到</param>
+            <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid。微信后台将对24小时内的群发记录进行检查，如果该clientmsgid已经存，则拒绝本次群发请求，返回已存在的群发msgid，开发者可以调用“查询群发消息发送状态”接口查看该条群发的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.PreviewVoiceMessage(System.String,System.String,System.String)">
+            <summary>
+            预览群发的语音/音频消息
+            </summary>
+            <param name="touser">openid，接收预览链接的用户</param>
+            <param name="media_id">注意此处media_id需通过素材管理->新增素材来得到</param>
+            <param name="towxname">微信号，接收预览链接的用户，同时填写touser，以towxname优先</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.SendVideoMessage(System.String,System.Boolean,System.Nullable{System.Int32},System.String)">
+            <summary>
+            群发视频消息
+            </summary>
+            <param name="media_id">此处视频的media_id,必须通过专门的群发视频消息素材接口上传返回的media_id才行（MateriaHelper.PostBatchVideoAsync）</param>
+            <param name="is_to_all">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据tag_id发送给指定群组的用户,默认为是</param>
+            <param name="tag_id">群发到的标签的tag_id，参见用户管理中用户分组接口，若is_to_all值为true，可不填写tag_id</param>
+            <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid。微信后台将对24小时内的群发记录进行检查，如果该clientmsgid已经存，则拒绝本次群发请求，返回已存在的群发msgid，开发者可以调用“查询群发消息发送状态”接口查看该条群发的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.SendVideoMessage(System.String[],System.String,System.String)">
+            <summary>
+            群发视频消息
+            </summary>
+            <param name="touser">填写图文消息的接收者，一串OpenID列表，OpenID最少2个，最多10000个</param>
+            <param name="media_id">此处视频的media_id,必须通过专门的群发视频消息素材接口上传返回的media_id才行（MateriaHelper.PostBatchVideoAsync）</param>
+            <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid。微信后台将对24小时内的群发记录进行检查，如果该clientmsgid已经存，则拒绝本次群发请求，返回已存在的群发msgid，开发者可以调用“查询群发消息发送状态”接口查看该条群发的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.PreviewVideoMessage(System.String,System.String,System.String)">
+            <summary>
+            预览群发的视频消息
+            </summary>
+            <param name="touser">openid，接收预览链接的用户</param>
+            <param name="media_id">此处视频的media_id,必须通过专门的群发视频消息素材接口上传返回的media_id才行（MateriaHelper.PostBatchVideoAsync）</param>
+            <param name="towxname">微信号，接收预览链接的用户，同时填写touser，以towxname优先</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.SendCardMessage(System.String,System.Boolean,System.Nullable{System.Int32},System.String)">
+            <summary>
+            群发卡券消息，目前还不知道card_id怎么来的
+            </summary>
+            <param name="card_id">卡券id</param>
+            <param name="is_to_all">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据tag_id发送给指定群组的用户,默认为是</param>
+            <param name="tag_id">群发到的标签的tag_id，参见用户管理中用户分组接口，若is_to_all值为true，可不填写tag_id</param>
+            <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid。微信后台将对24小时内的群发记录进行检查，如果该clientmsgid已经存，则拒绝本次群发请求，返回已存在的群发msgid，开发者可以调用“查询群发消息发送状态”接口查看该条群发的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.SendCardMessage(System.String[],System.String,System.String)">
+            <summary>
+            群发卡券消息，目前还不知道card_id怎么来的
+            </summary>
+            <param name="touser">填写图文消息的接收者，一串OpenID列表，OpenID最少2个，最多10000个</param>
+            <param name="card_id">卡券id</param>
+            <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid。微信后台将对24小时内的群发记录进行检查，如果该clientmsgid已经存，则拒绝本次群发请求，返回已存在的群发msgid，开发者可以调用“查询群发消息发送状态”接口查看该条群发的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.PreviewCardMessage(System.String,System.String,System.String)">
+            <summary>
+            预览群发的卡券消息，目前还不知道card_id怎么来的
+            </summary>
+            <param name="touser">openid，接收预览链接的用户</param>
+            <param name="card_id">卡券id</param>
+            <param name="towxname">微信号，接收预览链接的用户，同时填写touser，以towxname优先</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.SendImageMessage(System.String[],System.String,System.Boolean,System.Int32,System.Int32,System.Nullable{System.Int32},System.String)">
+            <summary>
+            群发图片消息
+            </summary>
+            <param name="media_ids">图片素材集合</param>
+            <param name="recommend">推荐语，不填则默认为“分享图片”</param>
+            <param name="is_to_all">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据tag_id发送给指定群组的用户,默认为是</param>
+            <param name="need_open_comment">是否打开评论，0不打开，1打开</param>
+            <param name="only_fans_can_comment">是否粉丝才可评论，0所有人可评论，1粉丝才可评论</param>
+            <param name="tag_id">群发到的标签的tag_id，参见用户管理中用户分组接口，若is_to_all值为true，可不填写tag_id</param>
+            <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid。微信后台将对24小时内的群发记录进行检查，如果该clientmsgid已经存，则拒绝本次群发请求，返回已存在的群发msgid，开发者可以调用“查询群发消息发送状态”接口查看该条群发的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.SendImageMessage(System.String[],System.String[],System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            群发图片消息
+            </summary>
+            <param name="touser">填写图文消息的接收者，一串OpenID列表，OpenID最少2个，最多10000个</param>
+            <param name="media_ids">图片素材集合</param>
+            <param name="recommend">推荐语，不填则默认为“分享图片”</param>
+            <param name="need_open_comment">是否打开评论，0不打开，1打开</param>
+            <param name="only_fans_can_comment">是否粉丝才可评论，0所有人可评论，1粉丝才可评论</param>
+            <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid。微信后台将对24小时内的群发记录进行检查，如果该clientmsgid已经存，则拒绝本次群发请求，返回已存在的群发msgid，开发者可以调用“查询群发消息发送状态”接口查看该条群发的状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.BatchMessageHelper.PreviewImageMessage(System.String,System.String,System.String)">
+            <summary>
+            预览群发的图片消息
+            </summary>
+            <param name="touser">openid，接收预览链接的用户</param>
+            <param name="media_id">media_id与根据群发中的media_id相同</param>
+            <param name="towxname">微信号，接收预览链接的用户，同时填写touser，以towxname优先</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.HttpHelper.PostAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+             POST请求
+            </summary>
+            <param name="url"></param>
+            <param name="postData"></param>
+            <param name="headers"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WeChatLink.Common.MateriaHelper">
+            <summary>
+            素材帮助类
+            </summary>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.PostMaterialAsync(System.String,System.IO.FileStream)">
+            <summary>
+            素材上传
+            </summary>
+            <param name="url"></param>
+            <param name="fs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.PostImageAsync(System.IO.FileStream,WeChatLink.Summary.E_MaterialTime)">
+            <summary>
+            上传图片
+            </summary>
+            <param name="fs">附件流</param>
+            <param name="materialTime">上传类型，永久还是临时</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.PostVoiceAsync(System.IO.FileStream,WeChatLink.Summary.E_MaterialTime)">
+            <summary>
+            上传语言
+            </summary>
+            <param name="fs">附件流</param>
+            <param name="materialTime">上传类型，永久还是临时</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.PostVideoAsync(System.IO.FileStream,WeChatLink.Summary.E_MaterialTime)">
+            <summary>
+            上传视频
+            </summary>
+            <param name="fs">附件流</param>
+            <param name="materialTime">上传类型，永久还是临时</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.PostThumbAsync(System.IO.FileStream,WeChatLink.Summary.E_MaterialTime)">
+            <summary>
+            上传缩略图
+            </summary>
+            <param name="fs">附件流</param>
+            <param name="materialTime">上传类型，永久还是临时</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.PostNewsImageAsync(System.IO.FileStream,WeChatLink.Summary.E_MaterialType)">
+            <summary>
+            上传图文消息内的图片获取URL,此上传返回的是图片的url，可以在腾讯系域名下使用
+            </summary>
+            <param name="fs">附件流</param>
+            <param name="material">素材类型</param>
+            <param name="materialTime">上传类型，永久还是临时</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.PostNewsAsync(WeChatLink.Model.M_Articles)">
+            <summary>
+            上传永久图文素材,thumb_media_id必须是永久素材
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.PostUpdateNewsAsync(System.String,WeChatLink.Model.M_MaterialNews,System.Int32)">
+            <summary>
+            修改永久图文素材
+            </summary>
+            <param name="media_id">要修改的图文消息的id</param>
+            <param name="eneity"></param>
+            <param name="index">要更新的文章在图文消息中的位置（多图文消息时，此字段才有意义），第一篇为0</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.GetPermanentMaterialAsync(System.String)">
+            <summary>
+            获取永久素材,可能返回附件流，也可能返回json，通过file是否为null判断
+            </summary>
+            <param name="mediaid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.GetTemporaryMaterialAsync(System.String)">
+            <summary>
+            获取临时素材,可能返回附件流，也可能返回json，通过file是否为null判断
+            </summary>
+            <param name="mediaid">素材id</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.GetHQVoiceMaterialAsync(System.String)">
+            <summary>
+            高清语音临时素材获取接口,https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_temporary_materials.html
+            公众号可以使用本接口获取从JSSDK的uploadVoice接口上传的临时语音素材，格式为speex，16K采样率。该音频比上文的临时素材获取接口（格式为amr，8K采样率）更加清晰，适合用作语音识别等对音质要求较高的业务。
+            </summary>
+            <param name="mediaid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.GetMaterialList(WeChatLink.Summary.E_MaterialType,System.Int32,System.Int32)">
+            <summary>
+            返回素材列表，不包含临时素材
+            </summary>
+            <param name="materialType">素材的类型，图片（image）、视频（video）、语音 （voice）、图文（news）</param>
+            <param name="offset">从全部素材的该偏移位置开始返回，0表示从第一个素材 返回</param>
+            <param name="count">返回素材的数量，取值在1到20之间</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.GetMaterialCount">
+            <summary>
+            获取素材总数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.GetMiniProgramCardHtmlTag(System.String,System.String,System.String,System.String)">
+            <summary>
+            小程序卡片跳转小程序
+            </summary>
+            <param name="miniprogram_appid">必填，小程序的AppID</param>
+            <param name="miniprogram_path">必填，小程序要打开的路径</param>
+            <param name="miniprogram_title">必填，小程序卡片的标题，不超过35个字</param>
+            <param name="miniprogram_imageurl">必填，小程序卡片的封面图链接，图片必须为1080*864像素</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.GetMiniProgramTextHtmlTag(System.String,System.String,System.String)">
+            <summary>
+            文字跳转小程序
+            </summary>
+            <param name="miniprogram_appid">必填，小程序的AppID</param>
+            <param name="miniprogram_path">必填，小程序要打开的路径</param>
+            <param name="miniprogram_title">必填，小程序卡片的标题，不超过35个字</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.GetMiniProgramImageHtmlTag(System.String,System.String,System.String)">
+            <summary>
+            图片跳转小程序
+            </summary>
+            <param name="miniprogram_appid">必填，小程序的AppID</param>
+            <param name="miniprogram_path">必填，小程序要打开的路径</param>
+            <param name="miniprogram_imageurl">必填，小程序卡片的封面图链接，图片必须为1080*864像素</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.PostBatchNewsAsync(WeChatLink.Model.M_Articles)">
+            <summary>
+            上传群发所用的图文消息素材
+            </summary>
+            <param name="list">thumb_media_id属性不能用永久素材，只能用临时素材，大坑</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MateriaHelper.PostBatchVideoAsync(System.String,System.String,System.String)">
+            <summary>
+            上传群发所用的视频素材
+            </summary>
+            <param name="media_id">永久素材或临时素材的id</param>
+            <param name="title">视频标题</param>
+            <param name="description">视频说明</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MessageHelper.SendTextMessage(WeChatLink.Model.M_MessageBase,System.String)">
+            <summary>
+            发送文本消息
+            </summary>
+            <param name="wx"></param>
+            <param name="content"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MessageHelper.SendImageMessage(WeChatLink.Model.M_MessageBase,System.String)">
+            <summary>
+            发送图片消息
+            </summary>
+            <param name="wx"></param>
+            <param name="mediaid">媒体id</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MessageHelper.SendVoiceMessage(WeChatLink.Model.M_MessageBase,System.String)">
+            <summary>
+            发送语音消息
+            </summary>
+            <param name="wx"></param>
+            <param name="mediaid">媒体id</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MessageHelper.SendVideoMessage(WeChatLink.Model.M_MessageBase,System.String,System.String,System.String)">
+            <summary>
+            发送视频消息
+            </summary>
+            <param name="wx"></param>
+            <param name="mediaid">视频素材id</param>
+            <param name="title">视频标题</param>
+            <param name="description">视频描述</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MessageHelper.SendMusicMessage(WeChatLink.Model.M_MessageBase,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            发送音乐消息
+            </summary>
+            <param name="wx"></param>
+            <param name="title">音乐标题</param>
+            <param name="description">音乐描述</param>
+            <param name="musicurl">音乐地址</param>
+            <param name="hqmusicurl">高质量音乐链接，WIFI环境优先使用该链接播放音乐</param>
+            <param name="thumbmediaid">缩略图的媒体id，通过素材管理中的接口上传多媒体文件，得到的id</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MessageHelper.SendNewsMessage(WeChatLink.Model.M_MessageBase,System.Collections.Generic.List{WeChatLink.Model.M_MessageNews})">
+            <summary>
+            发送图文消息
+            </summary>
+            <param name="_mode">微信发送用户信息包</param>
+            <param name="title">标题</param>
+            <param name="description">内容</param>
+            <param name="picurl">图片地址</param>
+            <param name="url">跳转地址</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.MessageHelper.GetAutoreplyInfoAsync">
+            <summary>
+            获取公众号当前使用的自动回复规则
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.TemplateHelper.SetIndustryAsync(System.UInt32,System.UInt32)">
+            <summary>
+            设置所属行业,设置行业可在微信公众平台后台完成，每月可修改行业1次，帐号仅可使用所属行业中相关的模板
+            </summary>
+            <param name="industry_id1">公众号模板消息所属行业编号</param>
+            <param name="industry_id2">公众号模板消息所属行业编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.TemplateHelper.GetIndustryAsync">
+            <summary>
+            获取设置的行业信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.TemplateHelper.GetTemplateIdAsync(System.String)">
+            <summary>
+            获得模板ID,从行业模板库选择模板到帐号后台，获得模板ID的过程可在微信公众平台后台完成。为方便第三方开发者，提供通过接口调用的方式来获取模板ID
+            </summary>
+            <param name="template_id_short">模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.TemplateHelper.GetTemplateListAsync">
+            <summary>
+            获取模板列表,获取已添加至帐号下所有模板列表，可在微信公众平台后台中查看模板列表信息。为方便第三方开发者，提供通过接口调用的方式来获取帐号下所有模板信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.TemplateHelper.DeleteTemplateAsync(System.String)">
+            <summary>
+            删除模板
+            </summary>
+            <param name="template_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.TemplateHelper.SendTemplateAsync(WeChatLink.Model.M_MessageTemplate)">
+            <summary>
+            发送模板消息
+            </summary>
+            <param name="eneity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.WebPageAuthorizeHelper.BuildAuthorizeUrl(System.String,WeChatLink.Summary.E_AuthorizeScope,System.String)">
+            <summary>
+            生成授权链接
+            </summary>
+            <param name="url">授权后重定向的回调链接地址，这里的地址可以填写到配置文件Routers/system下，增加webpageauthorization节点，到时候会自动获取webpage所需的access_token,并新增一个data参数到路由</param>
+            <param name="authorizeScope">应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且， 即使在未关注的情况下，只要用户授权，也能获取其信息 ）</param>
+            <param name="state">重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.WebPageAuthorizeHelper.GetWebPageAccessToken(System.String)">
+            <summary>
+            通过code获取用户的openid及token
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.WebPageAuthorizeHelper.RefreshAccessToken(System.String,System.String)">
+            <summary>
+            刷新token，由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token有效期为30天，当refresh_token失效之后，需要用户重新授权
+            </summary>
+            <param name="appid"></param>
+            <param name="refresh_token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WeChatLink.Common.WebPageAuthorizeHelper.GetUserInfo(System.String,System.String)">
+            <summary>
+            通过token和openid获取用户信息，需scope为 snsapi_userinfo
+            </summary>
+            <param name="access_token"></param>
+            <param name="openid"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WeChatLink.Core.Message">
+            <summary>
+            微信消息类
+            </summary>
+        </member>
+        <member name="M:WeChatLink.Core.Message.GetMessageEntity(System.String)">
+            <summary>
+            获取解析后的消息
+            </summary>
+            <param name="_xml"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WeChatLink.Core.EventMessage">
+            <summary>
+            菜单推送消息处理
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Core.StandardMessage">
+            <summary>
+            标准消息处理
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Core._Options">
+            <summary>
+            仅限当前程序集访问
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Core.Token.loadtoken">
+            <summary>
+            token是否正在加载
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_AccessToken.expires_in">
+            <summary>
+            凭证有效时间，单位：秒
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_AccessToken.refresh_token">
+            <summary>
+            用于刷新access_token的token，仅限webpage才会有值
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_AccessToken.scope">
+            <summary>
+            用户授权的作用域，使用逗号（,）分隔，仅限webpage才会有值
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_AccessToken.openid">
+            <summary>
+            用户的唯一标识，仅限webpage才会有值
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_APIResult`1.State">
+            <summary>
+            调用是否成功
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_APIResult`1.Data">
+            <summary>
+            成功时返回的数据对象
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_APIResult`1.Error">
+            <summary>
+            错误时返回的错误消息
+            </summary>
+        </member>
+        <member name="M:WeChatLink.Model.M_APIResult`1.LoadData(System.String)">
+            <summary>
+            加载数据转换成泛型对象
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="P:WeChatLink.Model.M_BatchSpeed.speed">
+            <summary>
+            群发速度的级别 0-4级，分别对应80W,60W,45W,30W,10W每分钟
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_BatchSpeed.realspeed">
+            <summary>
+                群发速度的真实值 单位：万/分钟
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_ErrorInfo.errcode">
+            <summary>
+            错误编码
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_ErrorInfo.errmsg">
+            <summary>
+            错误说明
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_EventBase">
+            <summary>
+            事件消息基类
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventBase.Event">
+            <summary>
+            事件名称
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_EventSubscribe">
+            <summary>
+            关注事件
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventSubscribe.Ticket">
+            <summary>
+            二维码的ticket，可用来换取二维码图片
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_EventUnSubscribe">
+            <summary>
+            取消关注事件
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_EventTemplateSendJobFinish">
+            <summary>
+            模板消息发送完成回到事件
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventTemplateSendJobFinish.MsgID">
+            <summary>
+            消息id
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventTemplateSendJobFinish.Status">
+            <summary>
+            发送状态为发送失败（非用户拒绝）
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_EventLOCATION">
+            <summary>
+            上报地理位置事件
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventLOCATION.Latitude">
+            <summary>
+            地理位置纬度
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventLOCATION.Longitude">
+            <summary>
+            地理位置经度
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventLOCATION.Precision">
+            <summary>
+            地理位置精度
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventMASSSENDJOBFINISH.MsgID">
+            <summary>
+            群发的消息ID
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventMASSSENDJOBFINISH.Status">
+            <summary>
+            群发的结果，为“send success”或“send fail”或“err(num)”。但send success时，也有可能因用户拒收公众号的消息、系统错误等原因造成少量用户接收失败
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventMASSSENDJOBFINISH.TotalCount">
+            <summary>
+            tag_id下粉丝数；或者openid_list中的粉丝数
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventMASSSENDJOBFINISH.FilterCount">
+            <summary>
+            过滤（过滤是指特定地区、性别的过滤、用户设置拒收的过滤，用户接收已超4条的过滤）后，准备发送的粉丝数，原则上，FilterCount 约等于 SentCount + ErrorCount
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventMASSSENDJOBFINISH.SentCount">
+            <summary>
+            发送成功的粉丝数
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventMASSSENDJOBFINISH.ErrorCount">
+            <summary>
+            发送失败的粉丝数
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventMASSSENDJOBFINISH.CopyrightCheckResult">
+            <summary>
+            各个单图文校验结果
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventMASSSENDJOBFINISH.ArticleUrlResult">
+            <summary>
+            群发文章的url
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_CopyrightCheckResult">
+            <summary>
+            各个单图文校验结果,M_EventMASSSENDJOBFINISH的子类
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_CopyrightCheckResult.Count">
+            <summary>
+            效验数量
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_CopyrightCheckResult.CheckState">
+            <summary>
+            整体校验结果，1-未被判为转载，可以群发，2-被判为转载，可以群发，3-被判为转载，不能群发
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_CopyrightCheckInfo">
+            <summary>
+            M_CopyrightCheckResult的子类
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_CopyrightCheckInfo.ArticleIdx">
+            <summary>
+            群发文章的序号，从1开始
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_CopyrightCheckInfo.UserDeclareState">
+            <summary>
+            用户声明文章的状态
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_CopyrightCheckInfo.AuditState">
+            <summary>
+            系统校验的状态
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_CopyrightCheckInfo.OriginalArticleUrl">
+            <summary>
+            相似原创文的url
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_CopyrightCheckInfo.OriginalArticleType">
+            <summary>
+            相似原创文的类型
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_CopyrightCheckInfo.CanReprint">
+            <summary>
+            是否能转载
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_CopyrightCheckInfo.NeedReplaceContent">
+            <summary>
+            是否需要替换成原创文内容
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_CopyrightCheckInfo.NeedShowReprintSource">
+            <summary>
+            是否需要注明转载来源
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_ArticleUrlResult">
+            <summary>
+            群发文章的url,M_EventMASSSENDJOBFINISH的子类
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_ArticleUrlResult.Count">
+            <summary>
+            数量
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_ArticleUrlInfo">
+            <summary>
+            M_ArticleUrlResult的子类
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_ArticleUrlInfo.ArticleIdx">
+            <summary>
+            群发文章的序号，从1开始
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_ArticleUrlInfo.ArticleUrl">
+            <summary>
+            群发文章的url
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventView.MenuId">
+            <summary>
+            指菜单ID，如果是个性化菜单，则可以通过这个字段，知道是哪个规则的菜单被点击了。
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_EventScanCode">
+            <summary>
+            扫描信息
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventScanCode.ScanType">
+            <summary>
+            扫描类型，一般是qrcode
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventScanCode.ScanResult">
+            <summary>
+            扫描结果，即二维码对应的字符串信息
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_EventSendPics">
+            <summary>
+            发送的图片信息
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventSendPics.Count">
+            <summary>
+            发送的图片数量
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_EventSendPics.PicList">
+            <summary>
+            图片列表
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.SendPicList.PicMd5Sum">
+            <summary>
+            图片的MD5值，开发者若需要，可用于验证接收到图片
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_EventSendLocation">
+            <summary>
+            发送的位置信息
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_Articles">
+            <summary>
+            永久素材图文
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_MaterialNews">
+            <summary>
+            永久素材图文明细
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MaterialNews.title">
+            <summary>
+            必填，标题
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MaterialNews.thumb_media_id">
+            <summary>
+            必填，图文消息的封面图片素材id（注意，群发上传的图文消息素材[/cgi-bin/media/uploadnews]只能是临时mediaID，其他的只能用永久素材）
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MaterialNews.author">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MaterialNews.digest">
+            <summary>
+            图文消息的摘要，仅有单图文消息才有摘要，多图文此处为空。如果本字段为没有填写，则默认抓取正文前64个字。
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MaterialNews.show_cover_pic">
+            <summary>
+            必填，是否显示封面，0为false，即不显示，1为true，即显示
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MaterialNews.content">
+            <summary>
+            必填，图文消息的具体内容，支持HTML标签，必须少于2万字符，小于1M，且此处会去除JS,涉及图片url必须来源 "上传图文消息内的图片获取URL"接口获取。外部图片url将被过滤。
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MaterialNews.content_source_url">
+            <summary>
+            必填，图文消息的原文地址，即点击“阅读原文”后的URL
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MaterialNews.need_open_comment">
+            <summary>
+            Uint32 是否打开评论，0不打开，1打开
+            </summary>   
+        </member>
+        <member name="P:WeChatLink.Model.M_MaterialNews.only_fans_can_comment">
+            <summary>
+            Uint32 是否粉丝才可评论，0所有人可评论，1粉丝才可评论
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_MessageBase">
+            <summary>
+            消息基类
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MessageBase.ToUserName">
+            <summary>
+            本公众帐号
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MessageBase.FromUserName">
+            <summary>
+            用户帐号
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MessageBase.CreateTime">
+            <summary>
+            发送时间戳
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MessageBase.MsgType">
+            <summary>
+            消息的类型
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MessageNews.Title">
+            <summary>
+            图文消息标题
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MessageNews.Description">
+            <summary>
+            图文消息描述
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MessageNews.PicUrl">
+            <summary>
+            图片链接，支持JPG、PNG格式，较好的效果为大图360*200，小图200*200
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MessageNews.Url">
+            <summary>
+            点击图文消息跳转链接
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MessageTemplate.touser">
+            <summary>
+            接收者openid
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MessageTemplate.template_id">
+            <summary>
+            模板ID
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MessageTemplate.url">
+            <summary>
+            非必填，模板跳转链接（海外帐号没有跳转能力）
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MessageTemplate.miniprogram">
+            <summary>
+            非必填，跳小程序所需数据，不需跳小程序可不用传该数据
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_MessageTemplate.data">
+            <summary>
+            模板数据，组成格式 "keyword1":{"value":"巧克力","color":"#173177" }
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_TemplateMiniProgram">
+            <summary>
+            模板消息中的小程序参数
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_TemplateMiniProgram.appid">
+            <summary>
+            所需跳转到的小程序appid（该小程序appid必须与发模板消息的公众号是绑定关联关系，暂不支持小游戏）
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_TemplateMiniProgram.pagepath">
+            <summary>
+            所需跳转到小程序的具体页面路径，支持带参数,（示例index?foo=bar），要求该小程序已发布，暂不支持小游戏
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_StandardBase">
+            <summary>
+            普通消息
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardBase.MsgId">
+            <summary>
+            消息id，64位整型
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardBase.MediaId">
+            <summary>
+            媒体id，可以调用获取临时素材接口拉取数据
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_StandardText">
+            <summary>
+            标准消息-文本消息
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardText.Content">
+            <summary>
+            发送的文本内容 
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_StandardImage">
+            <summary>
+            标准消息-图片消息
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardImage.PicUrl">
+            <summary>
+            图片消息媒体id，可以调用获取临时素材接口拉取数据。 
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_StandardVoice">
+            <summary>
+            标准消息-音频消息
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardVoice.Format">
+            <summary>
+            语音格式：amr
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardVoice.Recognition">
+            <summary>
+            语音识别结果，UTF8编码
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_StandardVideo">
+            <summary>
+            标准消息-视频消息
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardVideo.ThumbMediaId">
+            <summary>
+            视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_StandardShortVideo">
+            <summary>
+            标准消息-小视频消息
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardShortVideo.ThumbMediaId">
+            <summary>
+            视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_StandardLocation">
+            <summary>
+            标准消息-地理位置消息
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardLocation.Location_X">
+            <summary>
+            地理位置纬度
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardLocation.Location_Y">
+            <summary>
+            地理位置经度
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardLocation.Scale">
+            <summary>
+            地图缩放大小
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardLocation.Label">
+            <summary>
+            地理位置信息
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_StandardLink">
+            <summary>
+            标准消息-链接消息
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardLink.Title">
+            <summary>
+            消息标题
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardLink.Description">
+            <summary>
+            消息描述
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_StandardLink.Url">
+            <summary>
+            消息链接
+            </summary>
+        </member>
+        <member name="T:WeChatLink.Model.M_UserInfo">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_UserInfo.openid">
+            <summary>
+            用户的唯一标识
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_UserInfo.nickname">
+            <summary>
+            用户昵称
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_UserInfo.sex">
+            <summary>
+            用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_UserInfo.province">
+            <summary>
+            用户个人资料填写的省份
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_UserInfo.city">
+            <summary>
+            普通用户个人资料填写的城市
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_UserInfo.country">
+            <summary>
+            国家，如中国为CN
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_UserInfo.headimgurl">
+            <summary>
+            用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空。若用户更换头像，原有头像URL将失效。
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_UserInfo.privilege">
+            <summary>
+            用户特权信息，json 数组，如微信沃卡用户为（chinaunicom）
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Model.M_UserInfo.unionid">
+            <summary>
+            只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Options.Router.System">
+            <summary>
+            系统默认的路由
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Options.Router.Event">
+            <summary>
+            菜单推送事件相关路由
+            </summary>
+        </member>
+        <member name="P:WeChatLink.Options.Router.Standard">
+            <summary>
+            标准文本消息路由
+            </summary>
+        </member>
+        <member name="M:WeChatLink.Providers.WeChat.IWeChatProvider.Exec">
+            <summary>
+            
+            </summary>
+            <returns>false 直接返回，true 继续执行this.next(context)</returns>
+        </member>
+        <member name="M:WeChatLink.Services.ServiceWeChatLink.AddWeChatLink">
+            <summary>
+            添加WeChatLink所需的注入
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.MsgType.message_checksignature">
+            <summary>
+            接口验证
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.MsgType.message_webpageauthorize">
+            <summary>
+            网页授权
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.MsgType.message_menu">
+            <summary>
+            更新菜单
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.MsgType.message_event">
+            <summary>
+            事件消息
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.MsgType.message_text">
+            <summary>
+            文本消息类型
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.MsgType.message_image">
+            <summary>
+            图片消息
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.MsgType.message_voice">
+            <summary>
+            语音消息
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.MsgType.message_video">
+            <summary>
+            视频消息
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.MsgType.message_shortvideo">
+            <summary>
+            小视频消息
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.MsgType.message_location">
+            <summary>
+            地理位置消息
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.MsgType.message_link">
+            <summary>
+            链接消息
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_MaterialTime.Temporary">
+            <summary>
+            临时
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_MaterialTime.Permanent">
+            <summary>
+            永久
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_Event.subscribe">
+            <summary>
+            系统级订阅事件
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_Event.TEMPLATESENDJOBFINISH">
+            <summary>
+            系统级模板消息发送完成回调事件
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_Event.MASSSENDJOBFINISH">
+            <summary>
+            系统级群发消息发送完成事件
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_Event.unsubscribe">
+            <summary>
+            系统级取消订阅事件
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_Event.LOCATION">
+            <summary>
+            系统级上报地理位置事件
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_Event.VIEW">
+            <summary>
+            菜单级点击菜单后页面跳转事件
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_Event.scancode_push">
+            <summary>
+            菜单级扫码推事件的事件推送事件
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_Event.scancode_waitmsg">
+            <summary>
+            菜单级扫码推事件且弹出“消息接收中”提示框的事件推送事件
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_Event.pic_sysphoto">
+            <summary>
+            菜单级弹出系统拍照发图的事件推送事件
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_Event.pic_photo_or_album">
+            <summary>
+            菜单级弹出拍照或者相册发图的事件推送事件
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_Event.pic_weixin">
+            <summary>
+            菜单级弹出微信相册发图器的事件推送事件
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_Event.location_select">
+            <summary>
+            菜单级弹出地理位置选择器的事件推送事件
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_Event.view_miniprogram">
+            <summary>
+            菜单级点击菜单跳转小程序的事件推送事件
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_AuthorizeScope.snsapi_base">
+            <summary>
+            以snsapi_base为scope发起的网页授权，是用来获取进入页面的用户的openid的，并且是静默授权并自动跳转到回调页的。用户感知的就是直接进入了回调页（往往是业务页面）
+            </summary>
+        </member>
+        <member name="F:WeChatLink.Summary.E_AuthorizeScope.snsapi_userinfo">
+            <summary>
+            以snsapi_userinfo为scope发起的网页授权，是用来获取用户的基本信息的。但这种授权需要用户手动同意，并且由于用户同意过，所以无须关注，就可在授权后获取该用户的基本信息。
+            </summary>
+        </member>
+    </members>
+</doc>
