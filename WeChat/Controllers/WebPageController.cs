@@ -23,7 +23,15 @@ namespace WeChat.Controllers
         [Route("authorize")]
         public string Authorize()
         {
-            return WebPageAuthorizeHelper.BuildAuthorizeUrl("http://rcg1988.qicp.vip/authorize", Summary.E_AuthorizeScope.snsapi_base);
+            return WebPageAuthorizeHelper.BuildAuthorizeUrl("http://shimiao.ren:8100/WebPage/callback", Summary.E_AuthorizeScope.snsapi_base);
+        }
+
+        [HttpGet]
+        [Route("callback")]
+        public string callback(string code,string state)
+        {
+            var data = WebPageAuthorizeHelper.GetWebPageAccessToken(code).Result;
+            return code;
         }
      
     }

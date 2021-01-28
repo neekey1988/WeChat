@@ -102,7 +102,7 @@ namespace WeChat.Controllers
         [Route("clear")]
         public IActionResult ClearQuota()
         {
-            var result = Core.ClearApiQuotaAsync().Result;
+            var result = APIHelper.ClearApiQuotaAsync().Result;
             return Ok(result.message);
         }
         [HttpGet]
