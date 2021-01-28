@@ -28,10 +28,9 @@ namespace WeChat.Controllers
 
         [HttpGet]
         [Route("callback")]
-        public string callback(string code,string state)
+        public string callback(string code,string state,string data)
         {
-            var data = WebPageAuthorizeHelper.GetWebPageAccessToken(code).Result;
-            return code;
+            return code+"@@@@"+data;
         }
      
     }
