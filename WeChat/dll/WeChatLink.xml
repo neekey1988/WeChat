@@ -510,6 +510,14 @@
             <param name="openid"></param>
             <returns></returns>
         </member>
+        <member name="M:WeChatLink.Common.WebPageAuthorizeHelper.IsAccessTokenLose(System.String,System.String)">
+            <summary>
+            AccessToken是否有效
+            </summary>
+            <param name="access_token"></param>
+            <param name="openid"></param>
+            <returns></returns>
+        </member>
         <member name="T:WeChatLink.Core.Message">
             <summary>
             微信消息类

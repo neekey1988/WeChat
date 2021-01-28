@@ -25,7 +25,7 @@ namespace WeChat.Controllers
         [Route("authorize")]
         public string Authorize()
         {
-            return WebPageAuthorizeHelper.BuildAuthorizeUrl("http://shimiao.ren:8100/WebPage/callback", Summary.E_AuthorizeScope.snsapi_base);
+            return WebPageAuthorizeHelper.BuildAuthorizeUrl("http://shimiao.ren:8100/WebPage/callback", Summary.E_AuthorizeScope.snsapi_userinfo);
         }
 
         [HttpGet]
@@ -37,6 +37,7 @@ namespace WeChat.Controllers
             {
                 return Ok(result.Error.errmsg);
             }
+            Console.WriteLine(WebPageAuthorizeHelper.IsAccessTokenLose(result.Data.access_token,result.Data.openid).Result.Data.errmsg);
             if (result.Data.scope.ToLower() == Summary.E_AuthorizeScope.snsapi_userinfo.ToString().ToLower())
             {
                 var userinfo=WebPageAuthorizeHelper.GetUserInfo(result.Data.access_token,result.Data.openid).Result;
