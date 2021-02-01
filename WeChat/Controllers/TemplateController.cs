@@ -23,26 +23,26 @@ namespace WeChat.Controllers
         [Route("set")]
         public string SetTemplate()
         {
-            return TemplateHelper.SetIndustryAsync(2,10).Result.message;
+            return TemplateHelper.SetIndustryAsync(2,10).Result.Data;
         }
         [HttpGet]
         [Route("get")]
         public string GetTemplate()
         {
-            return TemplateHelper.GetIndustryAsync().Result.message;
+            return TemplateHelper.GetIndustryAsync().Result.Data;
         }
         [HttpGet]
         [Route("getlist")]
         public string GetTemplateList()
         {
-            return TemplateHelper.GetTemplateListAsync().Result.message;
+            return TemplateHelper.GetTemplateListAsync().Result.Data;
         }
 
         [HttpGet]
         [Route("del")]
         public string DelTemplateList(string id)
         {
-            return TemplateHelper.DeleteTemplateAsync(id).Result.message;
+            return TemplateHelper.DeleteTemplateAsync(id).Result.Data.errmsg;
         }
 
         [HttpPost]
@@ -60,6 +60,15 @@ namespace WeChat.Controllers
             var wx = (M_EventMASSSENDJOBFINISH)HttpContext.Items["M_RequestMessage"];
             Console.WriteLine(wx.MsgID+":"+wx.Status);
             return MessageHelper.SendTextMessage(wx, wx.Status+",已阅");
+        }
+
+        [HttpPost]
+        [Route("location")]
+        public IActionResult Location(M_MessageBase data)
+        {
+            var wx = (M_EventLOCATION)HttpContext.Items["M_RequestMessage"];
+            Console.WriteLine(wx.Latitude+":"+wx.Longitude);
+            return Ok("success");
         }
     }
 }

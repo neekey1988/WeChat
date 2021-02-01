@@ -26,12 +26,12 @@ namespace WeChat.Controllers
             var filePath = string.Format("/Images/result.jpg");
             //获取当前web目录
             var webRootPath = _hostingEnvironment.ContentRootPath+filePath;
-            Task<(bool state,string message)> result;
+            Task<M_APIResult<string>> result;
             using(FileStream fs=new FileStream(webRootPath,FileMode.Open, FileAccess.Read))
             {
                 result= MateriaHelper.PostThumbAsync(fs,Summary.E_MaterialTime.Temporary);
             }
-            return result.Result.message;
+            return result.Result.Data;
         }
 
         [HttpGet]
@@ -45,7 +45,7 @@ namespace WeChat.Controllers
                 need_open_comment=0, only_fans_can_comment=0, thumb_media_id= "9esnqWhnAq2hOWtSkGD37V6uq4-1TAvxjNDrqy9NY2M"
             });
             var result= MateriaHelper.PostNewsAsync(entity);
-            return result.Result.message;
+            return result.Result.Data;
         }
 
         [HttpGet]
@@ -67,15 +67,15 @@ namespace WeChat.Controllers
                 thumb_media_id = "uc_4UZM-fWBuUlHiXsWTMDnOzUDuwJ4lECSSJqgO7qA6WhGEfeIUROTs1KtCi5NI"
             });
             var result = MateriaHelper.PostBatchNewsAsync(entity);
-            return result.Result.message;
+            return result.Result.Data;
         }
 
         [HttpGet]
         [Route("getlist")]
         public string GetMaterialsList()
         {
-            string count = MateriaHelper.GetMaterialCount().Result.message;
-            return MateriaHelper.GetMaterialList( Summary.E_MaterialType.Image,0,20).Result.message;
+            string count = MateriaHelper.GetMaterialCount().Result.Data;
+            return MateriaHelper.GetMaterialList( Summary.E_MaterialType.Image,0,20).Result.Data;
         }
         [HttpGet]
         [Route("getpm")]
@@ -103,14 +103,14 @@ namespace WeChat.Controllers
         public IActionResult ClearQuota()
         {
             var result = APIHelper.ClearApiQuotaAsync().Result;
-            return Ok(result.message);
+            return Ok(result.Data);
         }
         [HttpGet]
         [Route("auto")]
         public IActionResult GetAutoreplyInfo()
         {
             var result =MessageHelper.GetAutoreplyInfoAsync().Result;
-            return Ok(result.message);
+            return Ok(result.Data);
         }
         [HttpGet]
         [Route("getspeed")]
@@ -135,14 +135,14 @@ namespace WeChat.Controllers
                 thumb_media_id = "9esnqWhnAq2hOWtSkGD37V6uq4-1TAvxjNDrqy9NY2M"
             };
             var result = MateriaHelper.PostUpdateNewsAsync("9esnqWhnAq2hOWtSkGD37eETYh7xL8AGrrS1DPisU5Y", entity).Result;
-            return Ok(result.message);
+            return Ok(result.Data);
         }
         [HttpGet]
         [Route("delpm")]
         public IActionResult DelPermanentMaterials()
         {
             var result = MateriaHelper.PostDeleteMaterialAsync("9esnqWhnAq2hOWtSkGD37U9DSPhaLwWTf3eE-ehcrgo").Result;//9esnqWhnAq2hOWtSkGD37eETYh7xL8AGrrS1DPisU5Y
-            return Ok(result.message);
+            return Ok(result.Data);
         }
         [HttpPost]
         public string NewMusic()
