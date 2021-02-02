@@ -21,7 +21,7 @@ namespace WeChat.Controllers
         public void AddTag()
         {
             var b = UserHelper.GetTagList();
-            var a = UserHelper.CreateTag("武汉10").Result;
+            var a = UserHelper.CreateTag("武汉1").Result;
 
         }
         [HttpGet]
