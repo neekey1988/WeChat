@@ -151,7 +151,7 @@ namespace WeChat.Controllers
         }
 
         [HttpPost]
-        public string Test(M_MessageBase wx)
+        public string Test(M_EventBase wx)
         {
             List<M_MessageNews> list = new List<M_MessageNews>();
             list.Add(new M_MessageNews()
