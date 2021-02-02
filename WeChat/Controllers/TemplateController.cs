@@ -47,26 +47,23 @@ namespace WeChat.Controllers
 
         [HttpPost]
         [Route("Finish")]
-        public string Finish()
+        public string Finish(M_EventTemplateSendJobFinish wx)
         {
-            var wx = (M_EventTemplateSendJobFinish)HttpContext.Items["M_RequestMessage"];
             Console.WriteLine(wx.MsgID+":"+wx.Status);
             return MessageHelper.SendTextMessage(wx, wx.Status+",已阅");
         }
         [HttpPost]
         [Route("batchfinish")]
-        public string BatchFinish()
+        public string BatchFinish(M_EventMASSSENDJOBFINISH wx)
         {
-            var wx = (M_EventMASSSENDJOBFINISH)HttpContext.Items["M_RequestMessage"];
             Console.WriteLine(wx.MsgID+":"+wx.Status);
             return MessageHelper.SendTextMessage(wx, wx.Status+",已阅");
         }
 
         [HttpPost]
         [Route("location")]
-        public IActionResult Location(M_MessageBase data)
+        public IActionResult Location(M_EventLOCATION wx)
         {
-            var wx = (M_EventLOCATION)HttpContext.Items["M_RequestMessage"];
             Console.WriteLine(wx.Latitude+":"+wx.Longitude);
             return Ok("success");
         }

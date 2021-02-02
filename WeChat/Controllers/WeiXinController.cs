@@ -145,16 +145,14 @@ namespace WeChat.Controllers
             return Ok(result.Data);
         }
         [HttpPost]
-        public string NewMusic()
+        public string NewMusic(M_MessageBase wx)
         {
-            var wx=(M_MessageBase)HttpContext.Items["M_RequestMessage"];
             return MessageHelper.SendTextMessage(wx, "新歌获取测试");
         }
 
         [HttpPost]
-        public string Test()
+        public string Test(M_MessageBase wx)
         {
-            var wx=(M_MessageBase)HttpContext.Items["M_RequestMessage"];
             List<M_MessageNews> list = new List<M_MessageNews>();
             list.Add(new M_MessageNews()
             {
@@ -167,16 +165,14 @@ namespace WeChat.Controllers
         } 
 
         [HttpPost]
-        public string subscribe()
+        public string subscribe(M_MessageBase wx)
         {
-            var wx = (M_MessageBase)HttpContext.Items["M_RequestMessage"];
             return MessageHelper.SendTextMessage(wx, "您好，欢迎关注我的公众号");
         }
 
         [HttpPost]
-        public string UserContent()
+        public string UserContent(M_StandardText wx)
         {
-            var wx = (M_StandardText)HttpContext.Items["M_RequestMessage"];
             if (wx.Content.Contains("image"))
             {
                 return MessageHelper.SendImageMessage(wx, "9esnqWhnAq2hOWtSkGD37V6uq4-1TAvxjNDrqy9NY2M");
@@ -198,16 +194,14 @@ namespace WeChat.Controllers
         }
 
         [HttpPost]
-        public string Image()
+        public string Image(M_StandardImage wx)
         {
-            var wx = (M_StandardImage)HttpContext.Items["M_RequestMessage"];
             return MessageHelper.SendImageMessage(wx, "9esnqWhnAq2hOWtSkGD37V6uq4-1TAvxjNDrqy9NY2M");
         }
 
         [HttpPost]
-        public string Location()
+        public string Location(M_StandardLocation wx)
         {
-            var wx = (M_StandardLocation)HttpContext.Items["M_RequestMessage"];
             return MessageHelper.SendTextMessage(wx,$"x:{wx.Location_X},y:{wx.Location_Y},Scale:{wx.Scale},Label:{wx.Label}");
         }
     }
