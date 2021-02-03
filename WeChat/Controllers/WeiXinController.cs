@@ -145,7 +145,7 @@ namespace WeChat.Controllers
             return Ok(result.Data);
         }
         [HttpPost]
-        public string NewMusic(M_MessageBase wx)
+        public string NewMusic(M_EventBase wx)
         {
             return MessageHelper.SendTextMessage(wx, "新歌获取测试");
         }
