@@ -117,7 +117,7 @@ namespace WeChat.Controllers
         public IActionResult GetSpeed()
         {
             var result = BatchMessageHelper.GetBatchSpeed().Result;
-            return Ok(result.batchspeed.realspeed);
+            return Ok(result.Data.realspeed);
         }
         [HttpGet]
         [Route("update")]
